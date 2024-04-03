@@ -1,25 +1,47 @@
 import "./App.css";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
-import { boardDefault, scoreBoardDefault } from "./Words";
+import { boardDefault, scoreBoardDefault, keyScoreValue } from "./Words";
 import React, { useState, createContext, useEffect } from "react";
 import GameOver from "./components/GameOver";
 import Confetti from 'react-confetti';
+import { useMediaQuery } from 'react-responsive';
 
 export const AppContext = createContext();
 
 function App() {
   const [board, setBoard] = useState(boardDefault);
   const [Scoreboard, setScoreBoard] = useState(scoreBoardDefault);
+  const [keyScore, setKeyScore] = useState(keyScoreValue);
   const [confetti, SetConfetti] = useState(false);
   const [score, setScore] = useState([]);
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letter: 0 });
-  const [disabledLetters, setDisabledLetters] = useState([]);
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
   const [gameOver, setGameOver] = useState({
     gameOver: false,
     guessedWord: false,
   });
 
+
+  const setKeyScoreValue = (score, currentWord) => {
+    const indices = [];
+    const newKeyScorebord = [...keyScore]
+    score.forEach((element, index) => {
+      if (element === 2) {
+        indices.push(currentWord[index] + 2);
+      }
+      else if (element === 1) {
+        indices.push(currentWord[index] + 1);
+      }
+      else {
+        indices.push(currentWord[index] + 0);
+      }
+      console.log(currAttempt.attempt)
+      newKeyScorebord[currAttempt.attempt] = indices;
+      setKeyScore(newKeyScorebord)
+});
+  }
 
 
   const onEnter = () => {
@@ -62,13 +84,14 @@ function App() {
         const newScorebord = [...Scoreboard]
         newScorebord[currAttempt.attempt] = data.score;
         setScoreBoard(newScorebord)
-        console.log(currAttempt)
+        console.log(Scoreboard)
+        setKeyScoreValue(data.score, currentWord)
       } else {
         alert("Not a valid word");
       }
 
       /** if user guessed correct word
-       * it's game over with Confetti on the page
+       * then it's game over with Confetti on the page
       */
       if (totalScore === 10) {
         setGameOver({ gameOver: true, guessedWord: true });
@@ -137,15 +160,14 @@ function App() {
           onSelectLetter,
           onDelete,
           onEnter,
-          setDisabledLetters,
-          disabledLetters,
           gameOver,
+          keyScore
         }}
       >
         <div className="game">
-          <Confetti run= {confetti} numberOfPieces = "100" />
+          <Confetti run= {confetti} numberOfPieces = "200" />
           <Board score={score}/>
-          {gameOver.gameOver ? <GameOver /> : <Keyboard />}
+          {gameOver.gameOver ? <GameOver /> : isMobile || isTablet ? <Keyboard /> : <Keyboard />}
         </div>
       </AppContext.Provider>
     </div>

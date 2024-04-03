@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 
-const Key = ({ keyVal, bigKey, disabled }) => {
-  const { gameOver,Scoreboard, currAttempt, onSelectLetter, onDelete,onEnter,disabledLetters } = useContext(AppContext);
-    const uniqueArray = [...new Set(disabledLetters)];
-    console.log(Scoreboard[currAttempt])
-
+const Key = ({ keyVal, bigKey, digit }) => {
+  const {gameOver, onSelectLetter, onDelete,onEnter } = useContext(AppContext);
+  
   const selectLetter = () => {
     if (gameOver.gameOver) return;
     if (keyVal === "ENTER") {
@@ -19,7 +17,7 @@ const Key = ({ keyVal, bigKey, disabled }) => {
   return (
     <div
       className="key"
-      id={bigKey ? "big" : disabled && `disabled`}
+      id={bigKey ? "big" : `changeCol${digit}`}
       onClick={selectLetter}
     >
       {keyVal}

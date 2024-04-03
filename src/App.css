@@ -7,14 +7,6 @@
   color: white;
 }
 
-@keyframes jump {
-  0%   { transform: translateY(0); }
-  25%  { transform: translateY(-10px); }
-  50%  { transform: translateY(0); }
-  75%  { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-}
-
 body {
   padding: 0%;
   margin: 0;
@@ -56,14 +48,16 @@ nav h1 {
   flex: 33%;
   display: flex;
   flex-direction: row;
+  border-radius: 4px;
   margin: 5px;
 }
 
 .letter {
-  flex: 33%;
+  flex: 40%;
   height: 100%;
   border: 1px solid grey;
   margin: 5px;
+  border-radius: 4px;
   display: grid;
   place-items: center;
   font-size: 20px;
@@ -80,7 +74,7 @@ nav h1 {
   background-color: #b49f39;
 }
 
-#error {
+#wrong {
   background-color: #3a393c;
 }
 
@@ -125,15 +119,22 @@ nav h1 {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
-  /* animation: jump 0.5s infinite; */
 }
 
 #big {
   width: 100px;
 }
-#disabled {
+
+#changeCol2{
+  background-color: #528d4e;
+  opacity: 0.8;
+}
+#changeCol1{
+  background-color: #b49f39;
+  opacity: 0.8;
+}
+#changeCol0{
   background-color: #3a393c;
-  /* pointer-events: none;  */
-  opacity: 0.5;
+  opacity: 0.8;
 }
 

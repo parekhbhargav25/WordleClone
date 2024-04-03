@@ -4,8 +4,8 @@ import Letter from "./Letter";
 
 
 // Wordle board structure
-const Board = ({score}) => {
-    // console.log(score )
+const Board = () => {
+    // console.log(score)
   return (
     <div className="board">
       <div className="row">
