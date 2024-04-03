@@ -5,19 +5,18 @@ import { boardDefault, scoreBoardDefault, keyScoreValue } from "./Words";
 import React, { useState, createContext, useEffect } from "react";
 import GameOver from "./components/GameOver";
 import Confetti from 'react-confetti';
-import { useMediaQuery } from 'react-responsive';
 
 export const AppContext = createContext();
 
 function App() {
+
+  
   const [board, setBoard] = useState(boardDefault);
   const [Scoreboard, setScoreBoard] = useState(scoreBoardDefault);
   const [keyScore, setKeyScore] = useState(keyScoreValue);
   const [confetti, SetConfetti] = useState(false);
   const [score, setScore] = useState([]);
   const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letter: 0 });
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
   const [gameOver, setGameOver] = useState({
     gameOver: false,
     guessedWord: false,
@@ -167,7 +166,7 @@ function App() {
         <div className="game">
           <Confetti run= {confetti} numberOfPieces = "200" />
           <Board score={score}/>
-          {gameOver.gameOver ? <GameOver /> : isMobile || isTablet ? <Keyboard /> : <Keyboard />}
+          {gameOver.gameOver ? <GameOver /> : <Keyboard />}
         </div>
       </AppContext.Provider>
     </div>

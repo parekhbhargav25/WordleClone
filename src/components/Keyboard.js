@@ -57,6 +57,7 @@ const Keyboard = () => {
    * to apply CSS style to key bassed on the score value for each key
    */
   const extractDigit = (keyScore, key) => {
+    console.log(keyScore)
     for (let i = 0; i < keyScore.length; i++) {
         for (let j = 0; j < keyScore[i].length; j++) {
             const entry = keyScore[i][j];
